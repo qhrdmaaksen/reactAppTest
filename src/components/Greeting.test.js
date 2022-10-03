@@ -2,7 +2,7 @@ import Greeting from "./Greeting";
 import {render, screen} from '@testing-library/react'
 test('greeting component test', () => {
 	render(<Greeting />)
-	const helloWorldElement = screen.getByText('Hello World!')	/*엘리먼트 존재유무*/
+	const helloWorldElement = screen.getByText('Hello World!', {exact: false})	/*엘리먼트 존재유무, 정밀하지않고 포함되어있어도 검색가능*/
 	/*테스트 결괏값을 전달할 수 있는 expect 함수
 	* 이 함수는 숫자든 문자열이든 뭐든 될 수 있음*/
 	expect(helloWorldElement).toBeInTheDocument()
