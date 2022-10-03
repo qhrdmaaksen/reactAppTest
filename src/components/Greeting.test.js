@@ -41,4 +41,13 @@ describe('Greeting component', () => {
     const outputElement = screen.getByText('버튼 클릭 후 바뀐 텍스트');
     expect(outputElement).toBeInTheDocument();
   });
+
+  it('버튼을 클릭 했을때 기존에있던 메시지가 사라지는지 테스트', async()=> {
+    render(<Greeting/>)
+    const buttonClickElement = screen.getByRole('button');
+    await userEvent.click(buttonClickElement)
+    /*queryByText() -element 가 찾아지지 않으면 null 반환*/
+    const fadeMessage = screen.queryByText('만나서 반가워!',{exact:false})
+    expect(fadeMessage).toBeNull()
+  })
 });
