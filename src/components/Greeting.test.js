@@ -1,5 +1,6 @@
 import Greeting from './Greeting';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 /*이 테스트를 이 describe 에 추가해줍니다. 이렇게 하나의 suite에 한 테스트가 옵니다. suite를 여러 개 가질 수도 있으며
 suite마다 테스트도 여러 개 가질 수 있습니다. 이제 이걸 저장하면 이 설명 텍스트가 아직도 있는 게 보이실 텐데
@@ -20,5 +21,24 @@ describe('Greeting component', () => {
 		반대로 확인할 수도 있음, 만약 이 엘리먼트가 문서 안에 없기를 바란다면 그런 경우에는 텍스트로 된
 		query 함수를 사용하면 됨, 엘리먼트가 발견되지 않으면 getByText는 실패할 테니까요*/
     /*expect(helloWorldElement).not.toBeInTheDocument()*/
+  });
+  test('버튼을 클릭하지 않을때 만나서 반가워 렌더링되는지 테스트', () => {
+    render(<Greeting />);
+
+    const outputElement = screen.getByText('만나서 반가워', { exact: false });
+    expect(outputElement).toBeInTheDocument();
+  });
+
+  test('버튼을 클릭 후 ', async () => {
+    // Arrange
+    render(<Greeting />);
+
+    // Act
+    const buttonElement = screen.getByRole('button');
+    await userEvent.click(buttonElement);
+
+    // Assert
+    const outputElement = screen.getByText('버튼 클릭 후 바뀐 텍스트');
+    expect(outputElement).toBeInTheDocument();
   });
 });
